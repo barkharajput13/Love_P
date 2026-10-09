@@ -1,0 +1,668 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f7efff">
+<title>Our Little Universe 🦋</title>
+
+<style>
+:root {
+  --lavender: #eadcff;
+  --pink: #ffcce6;
+  --deep-pink: #dc78b5;
+  --purple: #9370c5;
+  --text: #714d8c;
+  --white: #fffaff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: Georgia, serif;
+  background:
+    radial-gradient(ellipse at top left, #fff9ff 0%, transparent 50%),
+    linear-gradient(145deg, #f8edff, #ffeaf5 55%, #eee3ff);
+  overflow-x: hidden;
+}
+
+button, input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+/* Floating hearts */
+#floatLayer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 0;
+}
+
+.float-heart {
+  position: absolute;
+  bottom: -50px;
+  color: #d69ce9;
+  opacity: 0;
+  animation: floatUp linear infinite;
+  filter: drop-shadow(0 0 5px #f6c9ff);
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) rotate(0deg) scale(.7);
+    opacity: 0;
+  }
+  15% { opacity: .65; }
+  85% { opacity: .5; }
+  100% {
+    transform: translateY(-115vh) rotate(35deg) scale(1.25);
+    opacity: 0;
+  }
+}
+
+#loginScreen,
+#loveScreen {
+  position: relative;
+  z-index: 1;
+}
+
+/* Login page */
+#loginScreen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 22px;
+}
+
+.login-card {
+  width: 100%;
+  max-width: 390px;
+  padding: 32px 25px;
+  text-align: center;
+  border: 1px solid #fff;
+  border-radius: 30px;
+  background: rgba(255, 250, 255, .82);
+  box-shadow:
+    0 15px 50px #b993d52b,
+    0 0 25px #ffc7e655;
+  backdrop-filter: blur(12px);
+}
+
+.butterfly {
+  font-size: 46px;
+  animation: flutter 3s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes flutter {
+  0%, 100% { transform: rotate(-7deg) translateY(0); }
+  50% { transform: rotate(7deg) translateY(-7px); }
+}
+
+.login-card h1 {
+  color: #a16cb9;
+  font-weight: normal;
+  font-size: 29px;
+  margin: 10px 0;
+}
+
+.login-card p {
+  color: #ad8ab8;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.love-input {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin: 13px 0;
+  border: 1px solid #e9c9ef;
+  border-radius: 15px;
+  background: #fffaff;
+  color: #714d8c;
+  outline: none;
+  transition: box-shadow .2s, border .2s;
+}
+
+.love-input:focus {
+  border-color: #d49bde;
+  box-shadow: 0 0 12px #e7c4f6;
+}
+
+.love-input::placeholder {
+  color: #bd9fc5;
+}
+
+.love-button {
+  border: 1px solid #fff;
+  border-radius: 30px;
+  padding: 13px 25px;
+  color: white;
+  background: linear-gradient(120deg, #cba4ef, #f0a8d3);
+  box-shadow: 0 5px 18px #c89dd955;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.love-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 7px 22px #c89dd977;
+}
+
+#loginForm .love-button {
+  width: 100%;
+  margin-top: 7px;
+}
+
+#error {
+  min-height: 20px;
+  color: #bd619c;
+  font: 13px Arial, sans-serif;
+  margin-top: 12px;
+}
+
+.login-footer {
+  margin-top: 22px;
+  font-size: 12px;
+  color: #c29acb;
+  letter-spacing: 1px;
+}
+
+/* Love page */
+#loveScreen {
+  display: none;
+  min-height: 100vh;
+  padding: 20px 10px 25px;
+  text-align: center;
+}
+
+.heading {
+  margin: 6px 0;
+  font-size: clamp(27px, 5vw, 43px);
+  font-weight: normal;
+  color: #a26cba;
+  text-shadow: 0 2px 15px #e5b7f4;
+}
+
+.subtitle {
+  margin: 5px auto 0;
+  color: #b084c2;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.little-note {
+  color: #c08fbe;
+  font-size: 13px;
+  margin: 5px 0 0;
+}
+
+#pressButton {
+  margin: 13px auto 5px;
+  display: inline-block;
+  font-size: 15px;
+  padding: 12px 27px;
+}
+
+.heart-container {
+  width: 100%;
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+#heartCanvas {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.bottom {
+  color: #a475b6;
+  font-size: clamp(15px, 3.5vw, 21px);
+  margin: 0 auto 10px;
+  line-height: 1.6;
+}
+
+.footer {
+  color: #c39dc9;
+  font-size: 10px;
+  letter-spacing: 2px;
+  margin: 10px auto;
+}
+
+#backButton {
+  margin: 12px auto;
+  padding: 9px 22px;
+  background: rgba(255,255,255,.65);
+  border: 1px solid #e5c4ed;
+  border-radius: 25px;
+  color: #a477b9;
+}
+
+@media (max-width: 480px) {
+  #loveScreen {
+    padding: 18px 4px 20px;
+  }
+
+  .heading {
+    font-size: 27px;
+  }
+
+  .subtitle {
+    font-size: 12px;
+  }
+
+  .heart-container {
+    max-width: 100%;
+  }
+
+  .login-card {
+    padding: 27px 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .float-heart, .butterfly {
+    animation-duration: 12s;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div id="floatLayer" aria-hidden="true"></div>
+
+<section id="loginScreen">
+  <div class="login-card">
+    <div class="butterfly">🦋</div>
+    <h1>Our Little Universe</h1>
+    <p>A tiny world, made for one special person. 💗</p>
+
+    <form id="loginForm">
+      <input
+        class="love-input"
+        id="username"
+        type="text"
+        placeholder="Your username ♡"
+        autocomplete="username"
+        required
+      >
+
+      <input
+        class="love-input"
+        id="password"
+        type="password"
+        placeholder="Secret password 🔐"
+        autocomplete="current-password"
+        required
+      >
+
+      <button class="love-button" type="submit">
+        Enter My Heart ♡
+      </button>
+
+      <div id="error" role="status"></div>
+    </form>
+
+    <div class="login-footer">
+      MADE WITH LOVE & A LITTLE MAGIC ✨
+    </div>
+  </div>
+</section>
+
+<main id="loveScreen">
+  <div style="font-size:25px">🎀 🦋 🎀</div>
+
+  <h1 class="heading">I Love You, My Soulmate💗</h1>
+
+  <p class="subtitle">
+     Every language · One heart · One special person
+  </p>
+
+  <p class="little-note">
+    A little love note, written in every language ♡
+  </p>
+
+  <button id="pressButton" class="love-button" type="button">
+    Press it 💌
+  </button>
+
+  <div class="heart-container">
+    <canvas id="heartCanvas" width="700" height="600"></canvas>
+  </div>
+
+   <p class="bottom">
+    ♡🎀♡SORRY♡🎀♡
+  </p> 
+
+  <p class="bottom">
+    In every little universe, I’d still choose you.🎀♡
+  </p>
+
+  <p class="footer">
+    MY LITTLE UNIVERSE · FOREVER & ALWAYS🦋💗
+  </p>
+
+  <button id="backButton" type="button">
+    ← Back
+  </button>
+</main>
+
+<script>
+"use strict";
+
+/* Demo login credentials */
+const USER = "Barkha Rajput";
+const PASS = "Partiik13@";
+
+/* 51 ways to say I love you */
+const phrases = [
+  "I love you, Partiik",
+  "Te amo, Partiik",
+  "Je t'aime, Partiik",
+  "Ich liebe dich, Partiik",
+  "Ti amo, Partiik",
+  "Eu te amo, Partiik",
+  "Я люблю тебя, Partiik",
+  "愛してる, Partiik",
+  "사랑해, Partiik",
+  "我爱你, Partiik",
+  "我愛你, Partiik",
+  "मैं तुमसे प्यार करती हूँ, Partiik",
+  "ਮੈਂ ਤੈਨੂੰ ਪਿਆਰ ਕਰਦੀ ਹਾਂ, Partiik",
+  "أحبك, Partiik",
+  "دوستت دارم, Partiik",
+  "אני אוהבת אותך, Partiik",
+  "Σ' αγαπώ, Partiik",
+  "Seni seviyorum, Partiik",
+  "Anh yêu em, Partiik",
+  "Mahal kita, Partiik",
+  "Nakupenda, Partiik",
+  "Ik hou van jou, Partiik",
+  "Jeg elsker deg, Partiik",
+  "Jag älskar dig, Partiik",
+  "Rakastan sinua, Partiik",
+  "Обичам те, Partiik",
+  "Miluji tě, Partiik",
+  "Kocham cię, Partiik",
+  "Te quiero, Partiik",
+  "Amo-te, Partiik",
+  "Volim te, Partiik",
+  "Ljubim te, Partiik",
+  "T'estimo, Partiik",
+  "Mi amas vin, Partiik",
+  "Te iubesc, Partiik",
+  "Aishiteru, Partiik",
+  "Saranghae, Partiik",
+  "Wo ai ni, Partiik",
+  "Aku cinta kamu, Partiik",
+  "Ami tomake bhalobashi, Partiik",
+  "Main tuhanu pyaar kardi haan, Partiik",
+  "Ma timilai maya garchhu, Partiik",
+  "Nenu ninnu premistunnanu, Partiik",
+  "Naan unnai kaadhalikkiren, Partiik",
+  "Njan ninne snehikkunnu, Partiik",
+  "Ngiyakuthanda, Partiik",
+  "Aloha au iā ʻoe, Partiik",
+  "Mi amor, Partiik",
+  "Mon amour, Partiik",
+  "Amore mio, Partiik",
+  "Meu amor, Partiik"
+];
+
+const canvas = document.getElementById("heartCanvas");
+const ctx = canvas.getContext("2d");
+const W = canvas.width;
+const H = canvas.height;
+
+/* Smooth, rounded heart shape */
+const heartPath = new Path2D(
+  "M350 555 " +
+  "C305 515 65 365 65 245 " +
+  "C65 125 215 95 350 220 " +
+  "C485 95 635 125 635 245 " +
+  "C635 365 395 515 350 555 Z"
+);
+
+let words = [];
+let startTime = 0;
+let frame = null;
+
+/* Floating decorative hearts */
+const floatLayer = document.getElementById("floatLayer");
+const floatSymbols = ["♡", "♥", "✧", "💕", "🦋"];
+
+for (let i = 0; i < 22; i++) {
+  const heart = document.createElement("span");
+  heart.className = "float-heart";
+  heart.textContent = floatSymbols[i % floatSymbols.length];
+  heart.style.left = (Math.random() * 100) + "%";
+  heart.style.fontSize = (13 + Math.random() * 19) + "px";
+  heart.style.animationDuration = (9 + Math.random() * 12) + "s";
+  heart.style.animationDelay = (-Math.random() * 20) + "s";
+  floatLayer.appendChild(heart);
+}
+
+function insideHeart(x, y) {
+  return ctx.isPointInPath(heartPath, x, y);
+}
+
+/* Place phrases in horizontal rows inside the heart */
+function buildWords() {
+  const result = [];
+  let phraseIndex = 0;
+  let order = 0;
+
+  for (let y = 150; y < 535 && phraseIndex < phrases.length; y += 14) {
+    let left = -1;
+    let right = -1;
+
+    for (let x = 0; x < W; x += 1) {
+      if (insideHeart(x, y)) {
+        if (left === -1) left = x;
+        right = x;
+      }
+    }
+
+    if (left === -1) continue;
+
+    const rowLeft = left + 17;
+    const rowRight = right - 17;
+    const available = rowRight - rowLeft;
+
+    if (available < 45) continue;
+
+    let x = rowLeft;
+    const row = [];
+
+    while (phraseIndex < phrases.length) {
+      const text = phrases[phraseIndex];
+      let size = 16;
+
+      ctx.font = `bold ${size}px Cursive, sans-serif`;
+      let width = ctx.measureText(text).width;
+
+      while (width > available && size > 8) {
+        size--;
+        ctx.font = `bold ${size}px Cursive, sans-serif`;
+        width = ctx.measureText(text).width;
+      }
+
+      if (x + width > rowRight) break;
+
+      row.push({
+        text,
+        x: x + width / 2,
+        y,
+        size,
+        delay: order * 65,
+        color: order % 3 === 0
+          ? "#f5b0d7"
+          : order % 3 === 1
+          ? "#dca5f2"
+          : "#bd8be5"
+      });
+
+      x += width + 4;
+      phraseIndex++;
+      order++;
+    }
+
+    if (row.length) {
+      const first = row[0].x;
+      const last = row[row.length - 1].x;
+      const shift = (rowLeft + rowRight - first - last) / 2;
+
+      row.forEach(word => {
+        word.x += shift;
+        result.push(word);
+      });
+    }
+  }
+
+  return result;
+}
+
+/* Lavender-pink glowing outline */
+function drawOutline() {
+  ctx.save();
+
+  ctx.strokeStyle = "#e88acb";
+  ctx.lineWidth = 4;
+  ctx.shadowColor = "#db73ff";
+  ctx.shadowBlur = 24;
+  ctx.stroke(heartPath);
+
+  ctx.strokeStyle = "#fff0ff";
+  ctx.lineWidth = 1.4;
+  ctx.shadowColor = "#ffb9e8";
+  ctx.shadowBlur = 10;
+  ctx.stroke(heartPath);
+
+  ctx.restore();
+}
+
+/* Slide words in, then leave them still */
+function draw(time) {
+  ctx.clearRect(0, 0, W, H);
+
+  /* Soft heart glow */
+  ctx.save();
+  ctx.fillStyle = "#fff5ff";
+  ctx.shadowColor = "#e3a3ff";
+  ctx.shadowBlur = 20;
+  ctx.fill(heartPath);
+  ctx.restore();
+
+  drawOutline();
+
+  const elapsed = time - startTime;
+  let finished = true;
+
+  /* Clip all text to the heart boundary */
+  ctx.save();
+  ctx.clip(heartPath);
+
+  for (const word of words) {
+    const progress = Math.max(
+      0,
+      Math.min(1, (elapsed - word.delay) / 750)
+    );
+
+    if (progress < 1) finished = false;
+    if (progress <= 0) continue;
+
+    const eased = 1 - Math.pow(1 - progress, 3);
+    const startX = W + 120;
+    const x = startX + (word.x - startX) * eased;
+
+    ctx.save();
+    ctx.globalAlpha = progress;
+    ctx.font = `bold ${word.size}px Arial, sans-serif`;
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillStyle = word.color;
+    ctx.shadowColor = "#edb0ff";
+    ctx.shadowBlur = 4;
+    ctx.fillText(word.text, x, word.y);
+    ctx.restore();
+  }
+
+  ctx.restore();
+
+  if (!finished) {
+    frame = requestAnimationFrame(draw);
+  } else {
+    /* Animation stops here; words remain visible */
+    frame = null;
+  }
+}
+
+function startAnimation() {
+  if (frame !== null) {
+    cancelAnimationFrame(frame);
+    frame = null;
+  }
+
+  words = buildWords();
+  startTime = performance.now();
+  frame = requestAnimationFrame(draw);
+}
+
+/* Login */
+document.getElementById("loginForm").addEventListener("submit", event => {
+  event.preventDefault();
+
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value;
+
+  if (username === USER && password === PASS) {
+    document.getElementById("error").textContent = "";
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("loveScreen").style.display = "block";
+
+    window.scrollTo({ top: 0, behavior: "smooth" });
+    startAnimation();
+  } else {
+    document.getElementById("error").textContent =
+      "Oops! Username or password doesn't match 💔";
+  }
+});
+
+/* Replay the heart animation */
+document.getElementById("pressButton").addEventListener("click", () => {
+  startAnimation();
+});
+
+/* Back to login */
+document.getElementById("backButton").addEventListener("click", () => {
+  if (frame !== null) {
+    cancelAnimationFrame(frame);
+    frame = null;
+  }
+
+  document.getElementById("loveScreen").style.display = "none";
+  document.getElementById("loginScreen").style.display = "flex";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+/* Show the heart outline before animation starts */
+drawOutline();
+</script>
+
+</body>
+</html>
