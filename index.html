@@ -17,9 +17,7 @@
   --white: #fffaff;
 }
 
-* {
-  box-sizing: border-box;
-}
+* { box-sizing: border-box; }
 
 body {
   margin: 0;
@@ -32,15 +30,9 @@ body {
   overflow-x: hidden;
 }
 
-button, input {
-  font: inherit;
-}
+button, input { font: inherit; }
+button { cursor: pointer; }
 
-button {
-  cursor: pointer;
-}
-
-/* Floating hearts */
 #floatLayer {
   position: fixed;
   inset: 0;
@@ -59,25 +51,14 @@ button {
 }
 
 @keyframes floatUp {
-  0% {
-    transform: translateY(0) rotate(0deg) scale(.7);
-    opacity: 0;
-  }
+  0% { transform: translateY(0) rotate(0deg) scale(.7); opacity: 0; }
   15% { opacity: .65; }
   85% { opacity: .5; }
-  100% {
-    transform: translateY(-115vh) rotate(35deg) scale(1.25);
-    opacity: 0;
-  }
+  100% { transform: translateY(-115vh) rotate(35deg) scale(1.25); opacity: 0; }
 }
 
-#loginScreen,
-#loveScreen {
-  position: relative;
-  z-index: 1;
-}
+#loginScreen, #loveScreen { position: relative; z-index: 1; }
 
-/* Login page */
 #loginScreen {
   min-height: 100vh;
   display: flex;
@@ -94,9 +75,7 @@ button {
   border: 1px solid #fff;
   border-radius: 30px;
   background: rgba(255, 250, 255, .82);
-  box-shadow:
-    0 15px 50px #b993d52b,
-    0 0 25px #ffc7e655;
+  box-shadow: 0 15px 50px #b993d52b, 0 0 25px #ffc7e655;
   backdrop-filter: blur(12px);
 }
 
@@ -142,9 +121,7 @@ button {
   box-shadow: 0 0 12px #e7c4f6;
 }
 
-.love-input::placeholder {
-  color: #bd9fc5;
-}
+.love-input::placeholder { color: #bd9fc5; }
 
 .love-button {
   border: 1px solid #fff;
@@ -161,10 +138,7 @@ button {
   box-shadow: 0 7px 22px #c89dd977;
 }
 
-#loginForm .love-button {
-  width: 100%;
-  margin-top: 7px;
-}
+#loginForm .love-button { width: 100%; margin-top: 7px; }
 
 #error {
   min-height: 20px;
@@ -180,7 +154,6 @@ button {
   letter-spacing: 1px;
 }
 
-/* Love page */
 #loveScreen {
   display: none;
   min-height: 100vh;
@@ -252,32 +225,229 @@ button {
   color: #a477b9;
 }
 
+.next-letter-button {
+  display: block;
+  margin: 14px auto;
+  padding: 13px 24px;
+  border: 1px solid #ffffff;
+  border-radius: 30px;
+  background: linear-gradient(120deg, #e9c7ff, #ffc9e5);
+  color: #874b8c;
+  font-size: 14px;
+  cursor: pointer;
+  box-shadow: 0 0 20px #e7b9ff80;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.next-letter-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 0 28px #e7b9ff;
+}
+
+#memoriesPage {
+  min-height: 100vh;
+  padding: 35px 16px;
+  text-align: center;
+  color: #843b91;
+  background: linear-gradient(135deg, #fce7f3, #eadcff, #fff0f7);
+  font-family: Georgia, serif;
+}
+
+#memoriesPage[hidden],
+#letterPage[hidden],
+#universePage[hidden] {
+  display: none !important;
+}
+
+#memoriesPage h1 {
+  font-size: clamp(34px, 7vw, 58px);
+  font-style: italic;
+  margin: 10px 0;
+}
+
+#memoriesPage .subtitle {
+  margin-bottom: 30px;
+  letter-spacing: 3px;
+}
+
+.memory-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  max-width: 760px;
+  margin: 0 auto 30px;
+}
+
+.memory-card {
+  padding: 10px 10px 18px;
+  background: #fff9fc;
+  border-radius: 5px;
+  box-shadow: 0 8px 25px #a85b9b30;
+  transform: rotate(-2deg);
+}
+
+.memory-card:nth-child(even) { transform: rotate(2deg); }
+
+.memory-card img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+  display: block;
+  background: #f5e5f2;
+}
+
+.memory-card p {
+  font-size: 17px;
+  line-height: 1.5;
+  margin: 12px 0 0;
+}
+
+.memory-buttons {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin: 25px auto;
+}
+
+.memory-buttons button {
+  border: 1px solid white;
+  border-radius: 40px;
+  padding: 14px 22px;
+  background: linear-gradient(135deg, #e9c5ff, #ffc8e3);
+  color: #71377f;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 0 12px #d88cfa70;
+}
+
+.memory-buttons button:hover { transform: translateY(-2px); }
+
+/* Love Letter and Final Page */
+#letterPage, #universePage {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  overflow-y: auto;
+  padding: 30px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background:
+    radial-gradient(ellipse at top, #fff0fb 0%, transparent 55%),
+    linear-gradient(145deg, #eadcff, #ffd9ec, #f5e9ff);
+  font-family: Georgia, serif;
+  color: #81518d;
+}
+
+.letter-card {
+  position: relative;
+  width: min(100%, 490px);
+  box-sizing: border-box;
+  padding: 32px 24px;
+  border: 1px solid rgba(255,255,255,.9);
+  border-radius: 28px;
+  background: rgba(255,255,255,.70);
+  box-shadow: 0 0 35px #e8a8ed88, 0 15px 45px #b77bbd33;
+  text-align: center;
+  animation: letterAppear 1s ease both;
+}
+
+.letter-title {
+  font-size: clamp(27px, 7vw, 38px);
+  color: #bc68a7;
+  text-shadow: 0 0 16px #f5b8ee;
+  margin: 12px 0 8px;
+}
+
+.letter-subtitle {
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #a17bb2;
+}
+
+.letter-text {
+  font-size: 17px;
+  line-height: 1.95;
+  text-align: left;
+  margin-top: 25px;
+  white-space: pre-line;
+}
+
+.letter-sign {
+  text-align: right;
+  margin-top: 25px;
+  font-size: 19px;
+  color: #c16ca8;
+  font-style: italic;
+}
+
+.letter-heart {
+  font-size: 43px;
+  animation: heartGlow 2s ease-in-out infinite;
+}
+
+.letter-butterfly {
+  position: fixed;
+  pointer-events: none;
+  opacity: .7;
+  font-size: 23px;
+  animation: butterflyFloat 8s ease-in-out infinite;
+}
+
+.letter-butterfly.one { top: 9%; left: 8%; }
+.letter-butterfly.two { top: 22%; right: 8%; animation-delay: -3s; }
+.letter-butterfly.three { bottom: 10%; left: 12%; animation-delay: -5s; }
+
+.letter-button {
+  border: 1px solid #edc3e9;
+  border-radius: 30px;
+  padding: 12px 23px;
+  margin-top: 25px;
+  background: linear-gradient(135deg, #f6d7f1, #e5d7ff);
+  color: #854b91;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 0 18px #e9b7ed88;
+  transition: transform .2s, box-shadow .2s;
+}
+
+.letter-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 0 25px #e9a7eb;
+}
+
+@keyframes letterAppear {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+@keyframes heartGlow {
+  0%, 100% { transform: scale(1); text-shadow: 0 0 10px #f1a9e9; }
+  50% { transform: scale(1.12); text-shadow: 0 0 25px #e783dc; }
+}
+
+@keyframes butterflyFloat {
+  0%, 100% { transform: translateY(0) rotate(-10deg); }
+  50% { transform: translateY(-20px) rotate(12deg); }
+}
+
 @media (max-width: 480px) {
-  #loveScreen {
-    padding: 18px 4px 20px;
-  }
-
-  .heading {
-    font-size: 27px;
-  }
-
-  .subtitle {
-    font-size: 12px;
-  }
-
-  .heart-container {
-    max-width: 100%;
-  }
-
-  .login-card {
-    padding: 27px 20px;
-  }
+  #loveScreen { padding: 18px 4px 20px; }
+  .heading { font-size: 27px; }
+  .subtitle { font-size: 12px; }
+  .heart-container { max-width: 100%; }
+  .login-card { padding: 27px 20px; }
+  .memory-grid { gap: 12px; }
+  .memory-card { padding: 7px 7px 13px; }
+  .memory-card p { font-size: 14px; }
+  .letter-card { padding: 27px 19px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .float-heart, .butterfly {
-    animation-duration: 12s;
-  }
+  .float-heart, .butterfly { animation-duration: 12s; }
 }
 </style>
 </head>
@@ -293,83 +463,152 @@ button {
     <p>A tiny world, made for one special person. 💗</p>
 
     <form id="loginForm">
-      <input
-        class="love-input"
-        id="username"
-        type="text"
-        placeholder="Your username ♡"
-        autocomplete="username"
-        required
-      >
+      <input class="love-input" id="username" type="text"
+        placeholder="Your username ♡" autocomplete="username" required>
 
-      <input
-        class="love-input"
-        id="password"
-        type="password"
-        placeholder="Secret password 🔐"
-        autocomplete="current-password"
-        required
-      >
+      <input class="love-input" id="password" type="password"
+        placeholder="Secret password 🔐" autocomplete="current-password" required>
 
-      <button class="love-button" type="submit">
-        Enter My Heart ♡
-      </button>
-
+      <button class="love-button" type="submit">Enter My Heart ♡</button>
       <div id="error" role="status"></div>
     </form>
 
-    <div class="login-footer">
-      MADE WITH LOVE & A LITTLE MAGIC ✨
-    </div>
+    <div class="login-footer">MADE WITH LOVE & A LITTLE MAGIC ✨</div>
   </div>
 </section>
 
 <main id="loveScreen">
   <div style="font-size:25px">🎀 🦋 🎀</div>
-
   <h1 class="heading">I Love You, My Soulmate💗</h1>
 
-  <p class="subtitle">
-     Every language · One heart · One special person
-  </p>
+  <p class="subtitle">Every language · One heart · One special person</p>
+  <p class="little-note">A little love note, written in every language ♡</p>
 
-  <p class="little-note">
-    A little love note, written in every language ♡
-  </p>
-
-  <button id="pressButton" class="love-button" type="button">
-    Press it 💌
-  </button>
+  <button id="pressButton" class="love-button" type="button">Press it 💗</button>
 
   <div class="heart-container">
     <canvas id="heartCanvas" width="700" height="600"></canvas>
   </div>
 
-   <p class="bottom">
-    ♡🎀♡SORRY♡🎀♡
-  </p> 
+  <p class="bottom">♡🎀♡SORRY♡🎀♡</p>
+  <p class="bottom">In every little universe, I’d still choose you.🎀♡</p>
+  <p class="footer">MY LITTLE UNIVERSE · FOREVER & ALWAYS🦋💗</p>
 
-  <p class="bottom">
-    In every little universe, I’d still choose you.🎀♡
-  </p>
-
-  <p class="footer">
-    MY LITTLE UNIVERSE · FOREVER & ALWAYS🦋💗
-  </p>
-
-  <button id="backButton" type="button">
-    ← Back
+  <button class="next-letter-button" onclick="openLoveLetter()">
+    Next · A Letter for You 💌 →
   </button>
+
+  <button id="backButton" type="button">← Back</button>
 </main>
+
+<!-- LOVE LETTER PAGE -->
+<section id="letterPage" hidden>
+  <span class="letter-butterfly one">🦋</span>
+  <span class="letter-butterfly two">🦋</span>
+  <span class="letter-butterfly three">🦋</span>
+
+  <div class="letter-card">
+    <div class="letter-heart">💌</div>
+    <div class="letter-subtitle">A little letter from my heart</div>
+    <h1 class="letter-title">To My Partiik ♡</h1>
+
+    <div class="letter-text">My dearest Partiik,
+
+Some people enter our lives so quietly, yet somehow make everything feel a little more beautiful.
+
+You have this special way of making ordinary moments feel precious. Talking to you feels comforting, your presence feels peaceful, and even the smallest things remind me of you.
+
+If my heart were a little universe, you would be its favourite star. And if I could keep one feeling forever, it would be the happiness of having you in my world.
+
+No fancy words could ever explain everything I feel. I just hope you always remember how special you are to me.
+
+This little website is only a tiny piece of what my heart wishes to say. ♡</div>
+
+    <div class="letter-sign">
+      Forever & always,<br>
+      Your little universe 🦋
+    </div>
+
+    <button class="letter-button" onclick="openMemories()">
+      Our Memories 📸 →
+    </button>
+
+    <button class="letter-button" onclick="closeLoveLetter()">
+      ← Back to our heart ♡
+    </button>
+  </div>
+</section>
+
+<!-- MEMORIES PAGE -->
+<section id="memoriesPage" hidden>
+  <h1>♡ Our Memories ♡</h1>
+  <p class="subtitle">SOME MOMENTS · FOREVER</p>
+  <p>Every little moment with you becomes a memory I want to keep forever ♡</p>
+
+  <div class="memory-grid">
+    <div class="memory-card">
+      <img src="memory-ride.jpg" alt="Our first ride together">
+      <p>Our first ride together ♡<br>on 4-10-26</p>
+    </div>
+
+    <div class="memory-card">
+      <img src="memory-meeting.jpg" alt="Our first meeting">
+      <p>Our first meeting ♡<br>on 3-10-26</p>
+    </div>
+
+    <div class="memory-card">
+      <img src="memory-hands.jpg" alt="Our hands together">
+      <p>Hand in hand... ♡</p>
+    </div>
+
+    <div class="memory-card">
+      <img src="memory-sky.jpg" alt="Our dreamy evening">
+      <p>Forever & Always ♡</p>
+    </div>
+  </div>
+
+  <div class="memory-buttons">
+    <button onclick="closeMemories()">← Back to Love Letter</button>
+    <button onclick="goToUniverse()">Next · My Little Universe →</button>
+  </div>
+</section>
+
+<!-- FINAL PAGE -->
+<section id="universePage" hidden>
+  <span class="letter-butterfly one">🦋</span>
+  <span class="letter-butterfly two">🦋</span>
+  <span class="letter-butterfly three">🦋</span>
+
+  <div class="letter-card">
+    <div class="letter-heart">💗🦋💗</div>
+    <div class="letter-subtitle">JUST FOR YOU ♡</div>
+
+    <h1 class="letter-title">You Are My Little Universe ✨</h1>
+
+    <div class="letter-text" style="text-align:center;">
+      If my heart were a universe, every star would remind
+      me of you. And in every little tomorrow, I would
+      still wish for a moment with you, Partiik. ♡
+    </div>
+
+    <div style="font-size:25px; margin-top:20px;">♡ ✧ ♡ ✧ ♡</div>
+
+    <button class="letter-button" onclick="backToMemories()">
+      ← Back to Memories
+    </button>
+
+    <button class="letter-button" onclick="location.reload()">
+      ↻ Start Again ♡
+    </button>
+  </div>
+</section>
 
 <script>
 "use strict";
 
-/* Demo login credentials */
 const USER = "Barkha Rajput";
 const PASS = "Partiik13@";
 
-/* 51 ways to say I love you */
 const phrases = [
   "I love you, Partiik",
   "Te amo, Partiik",
@@ -429,7 +668,6 @@ const ctx = canvas.getContext("2d");
 const W = canvas.width;
 const H = canvas.height;
 
-/* Smooth, rounded heart shape */
 const heartPath = new Path2D(
   "M350 555 " +
   "C305 515 65 365 65 245 " +
@@ -442,7 +680,6 @@ let words = [];
 let startTime = 0;
 let frame = null;
 
-/* Floating decorative hearts */
 const floatLayer = document.getElementById("floatLayer");
 const floatSymbols = ["♡", "♥", "✧", "💕", "🦋"];
 
@@ -461,7 +698,6 @@ function insideHeart(x, y) {
   return ctx.isPointInPath(heartPath, x, y);
 }
 
-/* Place phrases in horizontal rows inside the heart */
 function buildWords() {
   const result = [];
   let phraseIndex = 0;
@@ -537,10 +773,8 @@ function buildWords() {
   return result;
 }
 
-/* Lavender-pink glowing outline */
 function drawOutline() {
   ctx.save();
-
   ctx.strokeStyle = "#e88acb";
   ctx.lineWidth = 4;
   ctx.shadowColor = "#db73ff";
@@ -552,15 +786,12 @@ function drawOutline() {
   ctx.shadowColor = "#ffb9e8";
   ctx.shadowBlur = 10;
   ctx.stroke(heartPath);
-
   ctx.restore();
 }
 
-/* Slide words in, then leave them still */
 function draw(time) {
   ctx.clearRect(0, 0, W, H);
 
-  /* Soft heart glow */
   ctx.save();
   ctx.fillStyle = "#fff5ff";
   ctx.shadowColor = "#e3a3ff";
@@ -573,7 +804,6 @@ function draw(time) {
   const elapsed = time - startTime;
   let finished = true;
 
-  /* Clip all text to the heart boundary */
   ctx.save();
   ctx.clip(heartPath);
 
@@ -607,7 +837,6 @@ function draw(time) {
   if (!finished) {
     frame = requestAnimationFrame(draw);
   } else {
-    /* Animation stops here; words remain visible */
     frame = null;
   }
 }
@@ -643,12 +872,10 @@ document.getElementById("loginForm").addEventListener("submit", event => {
   }
 });
 
-/* Replay the heart animation */
-document.getElementById("pressButton").addEventListener("click", () => {
-  startAnimation();
-});
+/* Replay heart animation */
+document.getElementById("pressButton").addEventListener("click", startAnimation);
 
-/* Back to login */
+/* Heart Page back to Login */
 document.getElementById("backButton").addEventListener("click", () => {
   if (frame !== null) {
     cancelAnimationFrame(frame);
@@ -660,7 +887,82 @@ document.getElementById("backButton").addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
-/* Show the heart outline before animation starts */
+/* Heart Page to Love Letter */
+function openLoveLetter() {
+  document.getElementById("loveScreen").style.display = "none";
+
+  const letter = document.getElementById("letterPage");
+  letter.hidden = false;
+  letter.style.display = "flex";
+  letter.scrollTop = 0;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* Love Letter back to Heart Page */
+function closeLoveLetter() {
+  const letter = document.getElementById("letterPage");
+  letter.hidden = true;
+  letter.style.display = "none";
+
+  document.getElementById("loveScreen").style.display = "block";
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* Love Letter to Memories */
+function openMemories() {
+  document.getElementById("letterPage").hidden = true;
+  document.getElementById("letterPage").style.display = "none";
+  document.getElementById("loveScreen").style.display = "none";
+
+  const memories = document.getElementById("memoriesPage");
+  memories.hidden = false;
+  memories.style.display = "block";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* Memories back to Love Letter */
+function closeMemories() {
+  const memories = document.getElementById("memoriesPage");
+  memories.hidden = true;
+  memories.style.display = "none";
+
+  const letter = document.getElementById("letterPage");
+  letter.hidden = false;
+  letter.style.display = "flex";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* Memories to final page */
+function goToUniverse() {
+  const memories = document.getElementById("memoriesPage");
+  memories.hidden = true;
+  memories.style.display = "none";
+
+  const universe = document.getElementById("universePage");
+  universe.hidden = false;
+  universe.style.display = "flex";
+  universe.scrollTop = 0;
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* Final page back to Memories */
+function backToMemories() {
+  const universe = document.getElementById("universePage");
+  universe.hidden = true;
+  universe.style.display = "none";
+
+  const memories = document.getElementById("memoriesPage");
+  memories.hidden = false;
+  memories.style.display = "block";
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+/* Draw heart outline before animation starts */
 drawOutline();
 </script>
 
